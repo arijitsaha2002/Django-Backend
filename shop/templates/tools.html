@@ -1,0 +1,449 @@
+{% extends "components/base.html" %}
+{% csrf_token %}
+{% load static %}
+{% block body %}
+
+<div class="mx-5 mt-3 mb-4" style="font-size: 1rem; font-weight: 500;">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="link-dark" href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item">
+                <a class="link-dark" id="category" role="button" onclick="my_function('', '', 'tool')">
+                    {{ products.0.collection.category.name }}
+                </a>
+            </li>
+            <li class="breadcrumb-item" aria-current="page" id="collection">
+                {{ products.0.collection.name }}
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .my-container {
+        min-width: 100vw;
+        max-width: 100vw;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .sidebar-text {
+        font-size: large;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 100;
+    }
+
+    .products {
+        display: flexbox;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .all-products {
+        display: flexbox;
+        min-width: 40vh;
+        max-width: 50vh;
+        height: 60vh;
+        background-color: #F2F2F2FF;
+        margin: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: white;
+        flex-shrink: 0;
+        flex-grow: 1;
+        flex-basis: 200px;
+        border-radius: 30px;
+        padding: 20px;
+        box-shadow: 0px 0px 5px gray;
+    }
+
+
+
+    .active-card {
+        display: flexbox;
+    }
+
+    .inactive-card {
+        display: none;
+    }
+
+
+    .placeholder-cards {
+        display: flexbox;
+        min-width: 40vh;
+        max-width: 50vh;
+        height: 10px;
+        margin: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        flex-shrink: 0;
+        flex-grow: 1;
+        flex-basis: 200px;
+    }
+
+    .product-box {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-left: auto;
+        margin-right: auto;
+        justify-self: center;
+        padding: 20px;
+        justify-content: center;
+    }
+
+    .product-sidebar {
+        border-radius: 10px;
+        box-shadow: 0 0 1px gray;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .product-sidebar-text {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .product-label {
+        font-size: 1 rem;
+        font-weight: 300;
+    }
+</style>
+
+
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 my-1 ps-lg-5 mb-4">
+
+            <div class="container-fluid d-block d-lg-none">
+                <div class="row justify-content-around align-items-center">
+
+                    <div class="col-12 d-md-flex justify-content-center">
+                        <div class="btn-group mx-auto">
+                            <button type="button" class="btn btn-light" aria-expanded="false"
+                                onclick='my_function("all-products", "/tools/all-products/", "All Products")'>
+                                <span class="h5">View All</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 d-md-flex justify-content-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <span class="h5">Construction Tools</span>
+                            </button>
+                            <ul class="dropdown-menu">
+
+
+                                {% for coll in collections %}
+                                {% if coll.category.name == "Construction Tools" %}
+                                {% with coll.name|slugify as modified_string %}
+
+                                <li class="dropdown-item">
+                                    <div class="d-flex justify-content-between align-items-center product-label"
+                                        role="button"
+                                        onclick="my_function('{{modified_string}}', '/tools/{{modified_string}}/', 'Construction Tools');">
+                                        <h5> {{ coll.name }} </h5>
+
+                                    </div>
+                                </li>
+
+                                {% endwith %}
+                                {% endif %}
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 d-md-flex justify-content-center">
+
+                        <div class="btn-group">
+                            <button type="button" class="mx-auto btn btn-light dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="h5">Stone Tools</span>
+                            </button>
+                            <ul class="dropdown-menu">
+
+                                {% for coll in collections %}
+                                {% if coll.category.name != "Construction Tools" %}
+                                {% with coll.name|slugify as modified_string %}
+
+                                <li class="dropdown-item">
+                                    <div class="d-flex justify-content-between align-items-center product-label"
+                                        role="button"
+                                        onclick="my_function('{{modified_string}}', '/tools/{{modified_string}}/', 'Stone Tools');">
+                                        <h5> {{ coll.name }} </h5>
+
+                                    </div>
+                                </li>
+
+                                {% endwith %}
+                                {% endif %}
+                                {% endfor %}
+
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="d-none d-lg-block">
+                <div class="product-sidebar py-3">
+                    <div class="d-flex justify-content-between align-items-center product-label" role="button"
+                        onclick='my_function("all-products", "/tools/all-products/", "All Products")'>
+                        <div class="product-sidebar-text">
+                            View All
+                        </div>
+                        <div class="pe-2">
+                            <i class="fa-solid fa-chevron-right fa-xs" style="color: #000000;"></i>
+                        </div>
+                    </div>
+
+                    <!-- <hr style="border: 1px solid black;"> -->
+                    <div class="d-flex my-2 justify-content-between align-items-center product-label" role="button"
+                        onclick="my_function('construction-tools', '/tools/construction-tools/', 'Construction Tools');">
+                        <div class="product-sidebar-text">
+                            Construction Tools
+                            <!-- <hr> -->
+                        </div>
+                        <div class="pe-2">
+                            <i class="fa-solid fa-chevron-right fa-xs" style="color: #000000;"></i>
+                        </div>
+                    </div>
+
+                    {% for coll in collections %}
+                    {% if coll.category.name == "Construction Tools" %}
+                    {% with coll.name|slugify as modified_string %}
+                    <div class="d-flex justify-content-between align-items-center product-label" role="button"
+                        onclick="my_function('{{modified_string}}', '/tools/{{modified_string}}/', 'Construction Tools');">
+
+                        <div class="ms-4 my-2">
+                            {{ coll.name }}
+                            <!-- <hr> -->
+                        </div>
+                        <div class="pe-2">
+                            <i class="fa-solid fa-chevron-right fa-2xs" style="color: #000000;"></i>
+                        </div>
+                    </div>
+                    {% endwith %}
+                    {% endif %}
+                    {% endfor %}
+                    <!-- <hr style="border: 1px solid black;"> -->
+                    <div class="d-flex my-2 justify-content-between align-items-center product-label" role="button"
+                        onclick="my_function('stone-tools', '/tools/stone-tools/', 'Stone Tools');">
+                        <div class="product-sidebar-text" role="button">
+                            Stone Tools
+                        </div>
+                        <div class="pe-2">
+                            <i class="fa-solid fa-chevron-right fa-xs" style="color: #000000;"></i>
+                        </div>
+                    </div>
+
+                    {% for coll in collections %}
+                    {% if coll.category.name != "Construction Tools" %}
+                    {% with coll.name|slugify as modified_string %}
+                    <div class="d-flex justify-content-between align-items-center product-label" role="button"
+                        onclick="my_function('{{modified_string}}', '/tools/{{modified_string}}/', 'Stone Tools');">
+                        <div class="ms-4 my-2" role="button">
+                            {{ coll.name }}
+                        </div>
+                        <div class="pe-2">
+                            <i class="fa-solid fa-chevron-right fa-2xs" style="color: #000000;"></i>
+                        </div>
+                    </div>
+                    {% endwith %}
+                    {% endif %}
+                    {% endfor %}
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-lg-9 py-0">
+            <div class="p-0 text-center" style="font-size: 2rem; font-weight: 500;" id="product-header">
+
+            </div>
+
+            <div class="products">
+                <div class="product-box mx-auto">
+
+                    {% for product in products %}
+
+                    <div class="all-products p-4 m-3 {{ product.collection.category.name | slugify }} {{ product.collection.name | slugify }}"
+                        onclick="window.open('/product/{{ product.id }}', '_blank');" role="button">
+                        <div style="font-size: 1rem; font-weight: 600; height: 20%;">
+                            {{ product.name }}
+                        </div>
+                        <div style="height: 40%;">
+
+                        </div>
+                        <div class="" style="height: 70%;">
+                            <div style="font-weight: 500;">{{ product.attributesName2 }}</div>
+                            <h8>{{ product.attributes2 }}</h8>
+                            <br>
+                            <div style="font-weight: 500;">{{ product.attributesName3 }}</div>
+                            <h8>{{ product.attributes3 }}</h8>
+                            <br>
+                            <div style="font-weight: 500;">{{ product.attributesName4 }}</div>
+                            <h8>{{ product.attributes4 }}</h8>
+                        </div>
+
+                        <div class="total-text" style="display: none;">
+                            {{ product.total }}
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+                    <div class="placeholder-cards"></div>
+                    <div class="placeholder-cards"></div>
+                    <div class="placeholder-cards"></div>
+                    <div class="placeholder-cards"></div>
+                    <div class="placeholder-cards"></div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<script>
+
+
+    var my_cards = document.getElementsByClassName("all-products");
+    var product_header = document.getElementById("product-header");
+
+    function changeURL(url) {
+        window.history.pushState(null, '', url);
+    }
+
+
+    function my_function(coll, new_url, cat) {
+
+        if (cat == "tool") {
+            if (document.getElementById("category").innerText == "Construction Tools") {
+                my_function("construction-tools", "/tools/construction-tools", "Construction Tools");
+            }
+            
+            if (document.getElementById("category").innerText == "Stone Tools") {
+                my_function("stone-tools", "/tools/stone-tools", "Stone Tools");
+            }
+
+            if (document.getElementById("category").innerText == "All Products") {
+                my_function("all-products", "/tools/all-products", "All Products");
+            }
+
+            return;
+        }
+
+        let tempCategory = cat;
+        for (let i = 0; i < my_cards.length; i++) {
+            if (my_cards[i].classList.contains(coll)) {
+                my_cards[i].classList.remove("inactive-card");
+                my_cards[i].classList.add("active-card");
+                if (cat == "") {
+                    if (!my_cards[i].classList.contains("construction-tools")) {
+                        tempCategory = "Stone Tools";
+                    }
+                    else {
+                        tempCategory = "Construction Tools";
+                    }
+                }
+            }
+            else {
+                my_cards[i].classList.remove("active-card");
+                my_cards[i].classList.add("inactive-card");
+            }
+        }
+
+        let temp = coll.split("-");
+        let newtemp = "";
+        for (let t = 0; t < temp.length; t++) {
+            newtemp = newtemp + " " + temp[t][0].toUpperCase() + temp[t].substr(1, temp[t].length).toLowerCase();
+        }
+
+        if (coll == "construction-tools") {
+            document.getElementById("category").innerText = "Construction Tools";
+            document.getElementById("collection").innerText = "";
+        }
+        else if (coll == "all-products") {
+            document.getElementById("category").innerText = "All Products";
+            document.getElementById("collection").innerText = "";
+        }
+        else if (coll == "stone-tools") {
+            document.getElementById("category").innerText = "Stone Tools";
+            document.getElementById("collection").innerText = "";
+        }
+        else {
+            document.getElementById("collection").innerText = newtemp;
+            document.getElementById("category").innerText = tempCategory;
+        }
+
+        product_header.innerText = coll.toUpperCase().replaceAll("-", " ");
+        changeURL(new_url);
+    }
+
+
+
+    my_function("{{ param }}", "/tools/{{ param }}/", "")
+
+    // {% if is_search == True %}
+    document.getElementById("my-new-search-bar").value = "{{ search }}";
+    search_text();
+    // {% endif %}
+
+    function search_text() {
+        let text = document.getElementById("my-new-search-bar").value.toUpperCase();
+        changeURL(`/tools/?search=${document.getElementById("my-new-search-bar").value.toLowerCase()}`);
+        document.getElementById("my-new-search-bar").value = "";
+
+        let temp = text.split("-");
+        let newtemp = "";
+        for (let t = 0; t < temp.length; t++) {
+            newtemp = newtemp + " " + temp[t][0].toUpperCase() + temp[t].substr(1, temp[t].length).toLowerCase();
+        }
+        document.getElementById("collection").innerText = newtemp;
+        document.getElementById("category").innerText = "Search";
+
+        product_header.innerText = "SEARCH RESULTS FOR " + text.toUpperCase().replaceAll("-", " ");
+
+        for (let i = 0; i < my_cards.length; i++) {
+            if (my_cards[i].classList.contains("active-card")) {
+                my_cards[i].classList.remove("active-card");
+                my_cards[i].classList.add("inactive-card");
+            }
+        }
+
+        for (let i = 0; i < my_cards.length; i++) {
+
+            let total_text = my_cards[i].getElementsByClassName("total-text")[0].textContent.toUpperCase();
+
+            if (total_text.indexOf(text) > -1) {
+                my_cards[i].classList.remove("inactive-card");
+                my_cards[i].classList.add("active-card");
+            }
+        }
+
+    }
+
+</script>
+{% endblock %}

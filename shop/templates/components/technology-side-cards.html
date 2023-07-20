@@ -1,0 +1,95 @@
+{% extends "components/base.html" %}
+{% csrf_token %}
+{% load static %}
+{% block body %}
+
+
+<style type="text/css">
+    .technology-card {
+        width: 90%;
+        height: 30vh;
+        border-style: solid;
+        position: relative;
+    }
+
+    .technology-card-img {
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90px;
+        height: 90px;
+        border-radius: 45px;
+        background-color: red;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<div class="container-fuild text-left mt-4 d-flex justify-content-center">
+    <div class="row" style="width: 96vw;">
+
+        <div class="col-md justify-content-center d-flex mt-5 mb-5">
+            <div class="technology-card">
+
+                <div class="technology-card-img">
+                </div>
+                <br>
+                <br>
+
+                <center>
+                    <div style="font-weight: 300; font-size: 2rem;">
+                        {% block heading-left %}
+                        Unique Segment Design
+                        {% endblock %}
+                    </div>
+                </center>
+                <br>
+
+
+                <center style="padding: 10px;">
+                    {% block text-left %}
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.
+                    {% endblock %}
+                </center>
+
+
+
+            </div>
+        </div>
+
+        <div class="col-md justify-content-center d-flex mt-5 mb-5">
+            <div class="technology-card">
+
+                <div class="technology-card-img">
+                </div>
+                <br>
+                <br>
+
+                <center>
+                    <div style="font-weight: 300; font-size: 2rem;">
+
+                        {% block heading-right %}
+                        Unique Segment Design
+                        {% endblock %}
+
+                    </div>
+                </center>
+                <br>
+
+                <center style="padding: 10px;">
+                    {% block text-right %}
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.
+                    {% endblock %}
+
+                </center>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

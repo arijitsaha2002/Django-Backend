@@ -1,0 +1,154 @@
+{% extends "components/base.html" %}
+{% csrf_token %}
+{% load static %}
+{% block body %}
+
+<br>
+<br>
+<br>
+<br>
+
+
+{% if request.method == "POST" %}
+<style type="text/css">
+    #msg-box {
+        border-radius: 30px;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        padding-bottom: 5vh;
+        position: fixed;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px gray;
+    }
+
+    #top-circle{
+        width: 10vw;
+        height: 10vw;
+        border-radius: 5vw;
+/*        background-color: #333333;*/
+        transform: translate(0%, -50%);
+    }
+</style>
+
+{% if SEND > 0 %}
+
+<div id="msg-box" class="bg-white">
+    <div id="top-circle" class="bg-success mx-auto d-flex justify-content-center align-items-center">
+        <i class="fa-solid fa-check fa-2xl" style="color: #ffffff;"></i>
+    </div>
+
+    <div class="text-center h4" style="margin-top: -2vh;">
+        {{msg.success_msg}}
+        <br>
+        <br>
+        <br>
+        <a class="btn btn-success" href="{% url 'want-quote' %}"><span class="h5">Close</span></a>
+    </div>
+</div>
+
+{% else %}
+
+<div id="msg-box" class="bg-white">
+    <div id="top-circle" class="bg-danger mx-auto d-flex justify-content-center align-items-center">
+        <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
+    </div>
+
+    <div class="text-center h4" style="margin-top: -2vh;">
+        {{msg.failure_msg}}
+        <br>
+        <br>
+        <br>
+        <a class="btn btn-success" href="{% url 'want_quote' %}"><span class="h5">Close</span></a>
+    </div>
+</div>
+
+{% endif %}
+
+{% endif %}
+
+
+<style type="text/css">
+    #want-quote {
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 0 5px gray;
+        background-color: #DCFCFFFF;
+    }
+
+    .want-input {
+        width: 100%;
+        font-size: 1rem;
+        border-radius: 20px;
+        border-style: none;
+        text-align: center;
+        padding: 10px;
+        margin: auto;
+    }
+</style>
+<br>
+<br>
+<div class="container text-left mt-4">
+    <div class="row" id="want-quote">
+
+        <div class="col-lg-5 d-flex justify-content-center align-items-center"
+            style="flex-shrink: 0;background-color: #2f92a3;">
+            <div style="font-size: 3rem; color: white;">
+                Want A Quote ?
+            </div>
+        </div>
+
+        <div class="col-lg-7 d-flex flex-column justify-content-center"
+            style=" flex-shrink: 0; background-color: #4ae0ac;">
+
+            <div class="d-flex justify-content-center py-5">
+
+                <form class="row g-3" method="post" action="/want-quote">{% csrf_token %}
+
+                    <div class="col-md-6">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="fname" name="fname" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lname" name="lname" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="telephone" class="form-label">Telephone</label>
+                        <input type="tel" class="form-control" id="telephone" name="telephone" required>
+                    </div>
+
+
+                    <div class="col-12">
+                        <label for="special_instruction" class="form-label">Special Instructions</label>
+                        <textarea type="text" class="form-control" id="special_instruction" 
+                        name="special_instruction" rows="8"></textarea>
+                    </div>
+
+                    <div class="col-12 d-flex">
+                        <div class="col-6 d-flexbox">
+                            <button type="submit" class="btn btn-danger">Proceed to send</button>
+                        </div>
+                        <div class="d-flexbox text-center">Thanks for enquiry!</div>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

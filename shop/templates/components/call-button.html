@@ -1,0 +1,488 @@
+{% csrf_token %}
+{% load static %}
+
+
+<style type="text/css">
+    body {
+        margin: 0;
+        padding: 0;
+        background: #f8f8f8;
+    }
+
+    #call {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .pulse {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+        background: rgb(255, 0, 64);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 20px;
+        text-align: center;
+        line-height: 150px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        animation: animate 2s linear infinite;
+        z-index: 100;
+    }
+
+    @keyframes animate {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 0, 64, 0.7), 0 0 0 0 rgba(255, 0, 64, 0.7);
+        }
+
+        40% {
+            box-shadow: 0 0 0 20px rgba(255, 0, 64, 0), 0 0 0 0 rgba(255, 0, 64, 0.7);
+        }
+
+        80% {
+            box-shadow: 0 0 0 20px rgba(255, 0, 64, 0), 0 0 0 20px rgba(255, 0, 64, 0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 0, 64, 0), 0 0 0 20px rgba(255, 0, 64, 0);
+        }
+    }
+</style>
+
+
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #white {
+        position: relative;
+        width: 44px;
+        height: 44px;
+        border-radius: 22px;
+        background-color: white;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        animation-name: zoom;
+        animation-duration: 8s;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+        animation-timing-function: linear;
+    }
+
+    @keyframes zoom {
+        0% {
+            height: 0px;
+            width: 0px;
+        }
+
+        40% {
+
+            height: 0px;
+            width: 0px;
+        }
+
+        42% {
+
+            height: 44px;
+            width: 44px;
+        }
+
+        98% {
+            height: 44px;
+            width: 44px;
+        }
+
+        100% {
+            height: 0px;
+            width: 0px;
+        }
+    }
+
+    #slider {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        animation-name: change;
+        animation-duration: 8s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+    }
+
+    @keyframes change {
+
+
+        0% {
+            transform: translate(0px, 0);
+        }
+
+        50% {
+
+            transform: translate(0px, 0);
+        }
+
+        64% {
+            transform: translate(0px, 0);
+        }
+
+        66% {
+            transform: translate(-40px, 0);
+        }
+
+        84% {
+            transform: translate(-40px, 0);
+        }
+
+        86% {
+            transform: translate(-80px, 0);
+        }
+
+        100% {
+            transform: translate(-80px, 0);
+        }
+
+    }
+
+    .call-items {
+        display: flexbox;
+        width: 40px;
+        flex-shrink: 0;
+    }
+
+    #call-container {
+        position: fixed;
+        background-color: #da1f3e;
+        bottom: 20px;
+        right: 20px;
+
+        width: 60px;
+        height: 60px;
+
+        cursor: pointer;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+    }
+
+    #background-call {
+        animation-name: big;
+        width: 25px;
+        height: 25px;
+        color: white;
+        position: fixed;
+        bottom: 37px;
+        right: 37px;
+
+        animation-duration: 8s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+    }
+
+
+    #cross-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: red;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        position: fixed;
+        top: 90vh;
+        left: 95vw;
+        color: white;
+    }
+
+    #background-cross {
+        display: none;
+        position: fixed;
+        background-color: #da1f3e;
+        bottom: 20px;
+        right: 20px;
+        border-radius: 30px;
+        width: 60px;
+        height: 60px;
+        background-repeat: no-repeat;
+        z-index: 200;
+    }
+
+    @keyframes big {
+        0% {
+            height: 25px;
+            width: 25px;
+        }
+
+        39% {
+
+            height: 25px;
+            width: 25px;
+        }
+
+        41% {
+
+            height: 0;
+            width: 0;
+        }
+
+        98% {
+            height: 0;
+            width: 0;
+        }
+
+        100% {
+            height: 25px;
+            width: 25px;
+        }
+    }
+
+    #call-options {
+        display: none;
+        width: max-content;
+        background-color: white;
+        position: fixed;
+        bottom: 100px;
+        right: 15px;
+        border-radius: 20px;
+        box-shadow: 0px 0px 10px gray;
+        z-index: 100;
+    }
+
+    #call-options:before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 85%;
+        margin-left: -15px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
+    }
+
+    .my-btn {
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 0 5px gray;
+    }
+
+    .my-btn:hover {
+        background-color: #DFDFDFFF;
+    }
+</style>
+
+
+<div class="pulse"></div>
+
+<div id="call-options">
+
+    <div class="container my-3 d-flex flex-column justify-content-around">
+        <div class="row align-items-center justify-content-center px-3 my-2"
+            onclick="window.open('https://api.whatsapp.com/send?phone=919137498003&amp;text=hi', '_blank');">
+
+            <div class="d-flex align-items-center my-btn px-3">
+                <div class="ms-0">
+                    <i class="fa-brands fa-whatsapp fa-xl" style="color: #551a8b;"></i>
+                </div>
+                <div class="ms-4">
+                    WhatsApp
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row align-items-center justify-content-center px-3 my-2"
+            onclick="window.open('viber://chat?number=%2B919137498003', '_blank')">
+
+            <div class="d-flex align-items-center my-btn px-3">
+                <div class="ms-0">
+                    <i class="fa-brands fa-viber fa-xl" style="color: #0000ee;"></i>
+                </div>
+                <div class="ms-4">
+                    Viber
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row align-items-center justify-content-center px-3 my-2"
+            onclick="window.open('/want-quote', '_blank')">
+
+            <div class="d-flex align-items-center my-btn px-3">
+                <div class="ms-0">
+                    <img src="/static/icons/chat-square-quote.svg">
+                </div>
+                <div class="ms-4">
+                    Want A Quote
+                </div>
+            </div>
+
+        </div>
+        <div class="row align-items-center justify-content-center px-3 my-2" role="button" data-bs-toggle="modal"
+            data-bs-target="#exampleModal-2">
+
+            <div class="d-flex align-items-center my-btn px-3">
+                <div class="ms-0">
+                    <i class="fa-solid fa-phone fa-flip-horizontal fa-lg" style="color: #4eb625;"></i>
+                </div>
+                <div class="ms-4">
+                    Callback Request
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="exampleModal-2" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-between">
+                    <div class="my-3 text-justify align-items-center" style="font-size: 1rem; font-weight: 400;">
+                        Please enter your phone number and
+                        we call you back soon
+                    </div>
+                    <div role="button" data-bs-dismiss="modal" class="mt-1">
+                        <i class="fa-solid fa-circle-xmark fa-lg" style="color: red;"></i>
+                    </div>
+                </div>
+
+                <form class="row g-3">
+                    <div class="col-12">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                    </div>
+                    <div class="col-12">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+                    </div>
+                    <div class="col-12">
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Mobile No">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-danger">Callback Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    #call-back {
+        position: fixed;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+        box-shadow: 0 0 5px gray;
+        z-index: 100;
+        background-color: whitesmoke;
+        display: none;
+        max-width: 95%;
+        overflow: visible;
+    }
+
+    .btn-circle {
+        width: 30px;
+        height: 30px;
+        padding: 2px 0px;
+        border-radius: 15px;
+        font-size: 8px;
+        text-align: center;
+    }
+</style>
+
+<div id="call-back" class="p-3 modal-dialog">
+    <div class="d-flex flex-row align-items-center justify-content-between">
+
+        <div style="font-size: 1.2rem; font-weight: 300;">
+            Please enter your phone number and we call you back soon
+        </div>
+        <button class="btn btn-danger btn-circle" onclick="hide_call_back()">
+            <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
+        </button>
+
+    </div>
+    <br>
+    <form class="row g-3">
+        <div class="col-12">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+        </div>
+        <div class="col-12">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+        </div>
+        <div class="col-12">
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Mobile No">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-danger">Callback Request</button>
+        </div>
+    </form>
+</div>
+
+<div id="background-cross" role="button" class="bg-danger text-center p-3" onclick="hide_call_back()">
+    <div class="d-flex align-items-center">
+        <img src="/static/img/xmark-solid.svg" width="50%" class="m-auto">
+    </div>
+</div>
+
+<div id="call-container" onclick="call_button()">
+
+    <img id="background-call" style="position: fixed;" src="/static/img/phone-solid.svg">
+    </img>
+
+
+    <div id="white">
+        <div id="slider" style="padding-left: 2px;">
+            <div class="call-items">
+                <i class="fa-brands fa-whatsapp fa-xl" style="color: #da1f3e; margin-left: 10px;"></i>
+
+            </div>
+            <div class="call-items">
+
+                <i class="fa-brands fa-viber  fa-xl" style="color: #da1f3e; margin-left: 8px;"></i>
+
+            </div>
+            <div class="call-items">
+
+                <i class="fa-solid fa-phone fa-flip-horizontal fa-lg" style="color: #da1f3e; margin-left: 10px;"></i>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var call_options = document.getElementById('call-options');
+    function call_button() {
+        call_options.style.display = "block";
+        document.getElementById("call-container").style.display = "none";
+        document.getElementById("background-cross").style.display = "flex";
+    }
+    call_options.style.display = "none";
+    document.getElementById("background-cross").style.display = "none";
+
+    function hide_call_back() {
+        call_options.style.display = "none"
+        document.getElementById("background-cross").style.display = "none";
+        document.getElementById("call-container").style.display = "flex";
+    }
+
+    function call_back() {
+        document.getElementById("call-back").style.display = "block"
+    }    
+</script>

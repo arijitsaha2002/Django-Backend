@@ -1,0 +1,42 @@
+
+            <div>
+                <div class="products">
+                    <div class="product-box">
+
+                        {% for product in products %}
+
+                        <div class="my-card {{ product.collection.name | slugify }}"
+                            onclick="window.open('/product/{{ product.id }}', '_blank');" role="button">
+                            <div style="font-size: 1rem; font-weight: 600; height: 20%;">
+                                {{ product.name }}
+                            </div>
+                            <div style="height: 40%;">
+
+                            </div>
+                            <div class="" style="height: 70%;">
+                                <div style="font-weight: 500;">{{ product.attributesName2 }}</div>
+                                <h8>{{ product.attributes2 }}</h8>
+                                <br>
+                                <div style="font-weight: 500;">{{ product.attributesName3 }}</div>
+                                <h8>{{ product.attributes3 }}</h8>
+                                <br>
+                                <div style="font-weight: 500;">{{ product.attributesName4 }}</div>
+                                <h8>{{ product.attributes4 }}</h8>
+                            </div>
+
+                            <div class="total-text" style="display: none;">
+                                {{ product.total }}
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
+                        <div class="placeholder-cards"></div>
+                        <div class="placeholder-cards"></div>
+                        <div class="placeholder-cards"></div>
+                        <div class="placeholder-cards"></div>
+                        <div class="placeholder-cards"></div>
+
+                    </div>
+                </div>
+            </div>

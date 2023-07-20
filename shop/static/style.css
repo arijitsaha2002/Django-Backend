@@ -1,0 +1,92 @@
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+.middle-img {
+    text-align: center;
+    color: white;
+    top: 40%;
+    left: 50%;
+    width: 90vw;
+    transform: translate(-50%, -50%);
+}
+
+
+.footer {
+    width: 100vw;
+    background-color: black;
+}
+
+.footer-heading {
+    font-size: 2em;
+}
+
+.footer-text {
+    font-style: normal;
+    text-decoration: none;
+    color: white;
+}
+
+#icon {
+    background-color: red;
+    border-radius: 35px;
+    height: 70px;
+    width: 70px;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+
+#contact-text {
+    font-size: 3em;
+    font-weight: 200;
+}
+
+
+.normal-text {
+    line-height: 30px;
+    font-weight: 300;
+}
+
+
+#carouselExampleControlsNoTouching {
+    background-image: url("/static/img/testimony.jpg");
+    height: 50vw;
+    background-size: cover;
+}
+
+#text {
+    position: relative;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 4rem;
+    color: white;
+    font-weight: 100;
+}
+
+.slides-text {
+    font-size: 1.5rem;
+    text-align: center;
+    height: 20vw;
+    margin-top: 10vw;
+    font-weight: 300;
+    color: white;
+}
+
+.product-user {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+}

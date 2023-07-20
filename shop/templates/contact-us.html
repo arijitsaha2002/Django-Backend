@@ -1,0 +1,150 @@
+{% extends "components/base.html" %}
+{% csrf_token %}
+{% load static %}
+{% block body %}
+
+
+
+
+{% if request.method == "POST" %}
+<style type="text/css">
+    #msg-box {
+        border-radius: 30px;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        padding-bottom: 5vh;
+        position: fixed;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px gray;
+    }
+
+    #top-circle{
+        width: 10vw;
+        height: 10vw;
+        border-radius: 5vw;
+/*        background-color: #333333;*/
+        transform: translate(0%, -50%);
+    }
+</style>
+
+{% if SEND > 0 %}
+
+<div id="msg-box" class="bg-white">
+    <div id="top-circle" class="bg-success mx-auto d-flex justify-content-center align-items-center">
+        <i class="fa-solid fa-check fa-2xl" style="color: #ffffff;"></i>
+    </div>
+
+    <div class="text-center h4" style="margin-top: -2vh;">
+        {{msg.success_msg}}
+        <br>
+        <br>
+        <br>
+        <a class="btn btn-success" href="{% url 'contact-us' %}"><span class="h5">Close</span></a>
+    </div>
+</div>
+
+{% else %}
+
+<div id="msg-box" class="bg-white">
+    <div id="top-circle" class="bg-danger mx-auto d-flex justify-content-center align-items-center">
+        <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
+    </div>
+
+    <div class="text-center h4" style="margin-top: -2vh;">
+        {{msg.failure_msg}}
+        <br>
+        <br>
+        <br>
+        <a class="btn btn-success" href="{% url 'contact-us' %}"><span class="h5">Close</span></a>
+    </div>
+</div>
+
+{% endif %}
+
+{% endif %}
+
+<div class="container-fuild text-left my-5">
+    <div class="row justify-content-center p-3">
+
+
+        <div class="col-lg-5 col-12 d-flex justify-content-center">
+            <div class="d-flexbox">
+                <div id="contact-text"> Dee Tec Tools LLP </div>
+                <br>
+                <div id="address">
+
+                    <h3>Address</h3>
+                    <div class="normal-text">
+                        DeeTec Tools LLP
+                        <br>
+                        1404 Maker Chamber 5
+                        <br>
+                        Nariman Point
+                        <br>
+                        Mumbai 400021, India
+
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <h3>sales@deetec.in</h3>
+                    <div class="normal-text">
+                        Tel No : +91-022-35113202
+                        <br>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="normal-text">
+                        WhatsApp : <span class="fst-italic fw-normal">+9137 49 8003</span>
+                        <br>
+                        Viber Chat : <span class="fst-italic fw-normal">+9137 49 8003</span>
+                        <br>
+                        E Mail Us : <span class="fst-italic fw-normal">sales@deetec.in</span>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-5 col-12 d-flex justify-content-center">
+            <div class="d-flexbox">
+
+                    <br>
+                    Please use this contact form below, and let our partnership begin.
+
+                    <form class="mt-5" action="/contact-us" method="post"> {% csrf_token %}
+
+                        <div class="mb-3 form-group">
+                            <label for="name">Your Name (required)</label>
+                            <input type="text" class="form-control" name="name" id="name" required>
+                        </div>
+
+                        <div class="mb-3 form-group">
+                            <label for="email">Your Email (required)</label>
+                            <input type="email" class="form-control" name="email" id="email" required>
+                        </div>
+
+                        <div class="mb-3 form-group">
+                            <label for="sub">Subject</label>
+                            <input type="text" class="form-control" name="sub" id="sub">
+                        </div>
+
+                        <div class="mb-3 form-group">
+                            <label for="msg">Your Message</label>
+                            <textarea class="form-control" name="msg" id="msg" rows="10"></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-dark" value="Submit">
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

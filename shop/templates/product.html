@@ -1,0 +1,149 @@
+{% extends "components/base.html" %}
+{% csrf_token %}
+{% load static %}
+{% block body %}
+
+<br>
+<div class="mx-5" style="font-size: 1rem; font-weight: 500;">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="link-dark" href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item">
+                <a  class="link-dark"  href="/tools/{{ product.collection.category.name | slugify }}">
+                    {{ product.collection.category.name }}
+                </a>
+            </li>
+            <li class="breadcrumb-item" aria-current="page">
+                <a  class="link-dark"  href="/tools/{{ product.collection.name | slugify }}">
+                    {{ product.collection.name }}
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container-fluid my-5 px-5">
+    <div class="row justify-content-around">
+
+        <div class="col-lg-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 p-0 d-flex justify-content-center">
+                        <img src="/static/img/products.webp" style="width: 80%;" alt="">
+                    </div>
+                </div>
+                <div class="row my-5 justify-content-between" style="border-radius: 20px; box-shadow: 0 0 10px gray;">
+
+                    <div class="col-12 p-3 d-flex align-items-center justify-content-between">
+
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                                <tr class="table-dark text-light">
+                                    <th scope="col">#</th>
+                                    <th scope="col">
+                                        ALL PRODUCTS SPECIFICATION
+                                    </th>
+                                    <th scope="col">
+                                        {{product.name}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in attr %}
+                                {% if i.1 != None and i.1 != "" %}
+                                <tr class="d-flejustify-content-between">
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>{{ i.0 }}</td>
+                                    <td>{{ i.1 }}</td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <br>
+                        <h3>{{ product.collection.heading }}</h3>
+                        <br>
+                        <div style="font-size: 1.2rem;">
+                            <p style="text-align: justify;">
+                                {{ product.collection.desc }}
+                            </p>
+                        </div>
+                        <br>
+
+                        <ul class="ms-3" style="font-size: 1.1rem;">
+                            <li>
+                                {{ product.collection.description1 }}
+                            </li>
+                            {% if product.collection.description2 != "" %}
+                            <li>
+                                {{ product.collection.description2 }}
+                            </li>
+                            {% endif %}
+                            {% if product.collection.description3 != "" %}
+                            <li>
+                                {{ product.collection.description3 }}
+                            </li>
+                            {% endif %}
+                            {% if product.collection.description4 != "" %}
+                            <li>
+                                {{ product.collection.description4 }}
+                            </li>
+                            {% endif %}
+                            {% if product.collection.description5 != "" %}
+                            <li>
+                                {{ product.collection.description5 }}
+                            </li>
+                            {% endif %}
+                            {% if product.collection.description6 != "" %}
+                            <li>
+                                {{ product.collection.description6 }}
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 p-5 text-light align-self-start mt-5" style="background-color: #333333;">
+            <div class="mb-3" style="font-weight: 100; font-size: 1.5rem;">
+                {{ product.collection.category }}
+            </div>
+
+
+            {% for coll in collections %}
+            {% if coll.category.name == product.collection.category.name %}
+            <div class="my-2 p-2" role="button" style="background-color: #555555; font-size: .9rem;">
+                <i class="fa-solid fa-chevron-left" style="color: #ffffff;"></i>
+                &nbsp; &nbsp; {{ coll.name }}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+            <div class="my-3" style="font-weight: 100; font-size: 1.5rem;">
+                Brochures
+            </div>
+
+
+            <button class="btn btn-light">
+                Download PDF Brochure
+            </button>
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+{% endblock %}

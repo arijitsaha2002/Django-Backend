@@ -1,0 +1,35 @@
+{% extends "components/base.html" %}
+{% csrf_token %}
+{% load static %}
+{% block body %}
+
+<br>
+<div class="container-lg container-fluid mt-5">
+    <div class="row justify-content-center py-3">
+
+        {% for video in videos %}
+        <div class="col-12 my-3">
+            <div class="container-lg container-fluid">
+                <div class="row">
+                    <div class="col-lg-5 col-12">
+                        <!-- <div class="d-lg-block d-none">
+                            <iframe src="https://drive.google.com/file/d/1t2kOUERs34q3eEZVySDKXIYc1LC2bTVN/preview"
+                                style="width: 28vw; height: 21vw;" allow="autoplay"></iframe>
+                        </div> -->
+                        <div class="d-block d-lg-none mx-auto">
+                            <iframe src="https://drive.google.com/file/d/1t2kOUERs34q3eEZVySDKXIYc1LC2bTVN/preview"
+                                style="width: 84vw; height: 63vw;" allow="autoplay"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 bg-primary col-12">
+                        {{ video.title }}
+                        {{ video.url }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

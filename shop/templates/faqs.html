@@ -1,0 +1,104 @@
+{% extends "components/base.html" %}
+{% csrf_token %}
+{% load static %}
+{% block body %}
+
+
+
+<style type="text/css">
+    .question {
+        background-color: #eee;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border-bottom: 2px solid #B0B0B0FF;
+    }
+
+    .answer {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 10px;
+        transition: max-height 0.3s ease;
+    }
+
+    .active {}
+
+    .active+.answer {
+        max-height: 700px;
+        transition: max-height 0.3s ease;
+    }
+</style>
+
+
+<br>
+<br>
+<br>
+<div class="container-fuild text-left mt-5">
+    <div class="row justify-content-center">
+
+        <div class="col-lg text-center p-lg-5">
+            <img src="{% static 'img/dee3.jpg' %}" style="width: 90%;">
+        </div>
+        <div class="col-lg col-11">
+
+            <br>
+            <br>
+            <br>
+
+            <div class="me-lg-5">
+
+                {% for faq in faqs %}
+                <div class="question py-2 px-3 d-flex justify-content-between align-items-center"
+                    style="font-weight: 500;">
+                    <div>
+                        {{faq.question}}
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-chevron-down" style="color: #000000;"></i>
+                    </div>
+                </div>
+
+                <div class="answer">
+                    <div class="p-3">
+                        {{faq.answer}}
+                    </div>
+                </div>
+                <br>
+                {% endfor %}
+
+            </div>
+
+            <script type="text/javascript">
+                const questions = document.querySelectorAll('.question');
+                questions.forEach((question) => {
+                    question.addEventListener('click', () => {
+                        if (!question.classList.contains('active')) {
+                            const answer = question.nextElementSibling;
+                            const isActive = question.classList.contains('active');
+
+                            questions.forEach((q) => {
+                                q.classList.remove('active');
+                                q.nextElementSibling.style.maxHeight = 0;
+                            });
+
+                            if (!isActive) {
+                                question.classList.add('active');
+                                answer.style.maxHeight = answer.scrollHeight + 'px';
+                            }
+                        }
+                    });
+                });
+
+                questions[0].classList.add('active');
+                questions[0].nextElementSibling.style.maxHeight = questions[0].nextElementSibling.scrollHeight + 'px';
+            </script>
+
+
+
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+{% endblock %}

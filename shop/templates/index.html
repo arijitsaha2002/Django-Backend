@@ -1,0 +1,24 @@
+{% extends "components/base.html" %}
+{% csrf_token %}
+{% load static %}
+{% block body %}
+
+
+
+
+{% include "components/background-img.html" %}
+
+<!-- {% include "components/cards.html" %} -->
+
+
+{% include "components/five-cards.html" %}
+<br>
+
+{% include "components/testimonial.html" %}
+
+<br>
+<br>
+
+{% include "components/six-cards.html" %}
+
+{% endblock %}

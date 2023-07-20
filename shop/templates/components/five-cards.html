@@ -1,0 +1,138 @@
+<style type="text/css">
+    @media screen and (min-width: 992px) {
+        .my-card-home {
+            width: 20vw;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .my-card-home {
+            width: 175px;
+        }
+    }
+
+    .my-card-home {
+        background-color: green;
+        flex-shrink: 0;
+        aspect-ratio: 3 / 4;
+        margin: 1vw;
+        border-radius: 10px;
+        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/static/img/1.webp');
+        background-size: cover;
+    }
+
+    .my-card-home:hover {
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/img/1.webp');
+        background-size: cover;
+        cursor: pointer;
+    }
+
+    .my-text {
+        font-size: 2rem;
+        font-weight: 500;
+        color: white;
+    }
+
+    .arrow-left,
+    .arrow-right {
+        position: absolute;
+        padding: 10px;
+    }
+
+    .arrow-left {
+        top: 50%;
+        left: 5%;
+        transform: translate(-50%, -50%);
+    }
+
+    .arrow-right {
+        top: 50%;
+        right: 5%;
+        transform: translate(50%, -50%);
+    }
+
+    #main-container-background {
+        scroll-behavior: smooth;
+    }
+
+    #main-container-background::-webkit-scrollbar {
+        height: 3px;
+        border-radius: 1px;
+        background-color: #CECECEFF;
+    }
+
+    #main-container-background::-webkit-scrollbar-track {
+        background-color: #CECECEFF;
+    }
+
+    #main-container-background::-webkit-scrollbar-thumb {
+        background-color: black;
+    }
+</style>
+
+<br>
+<br>
+<div class="position-relative">
+
+    <div class="arrow-left d-lg-inline d-none bg-dark bg-opacity-50 px-3 py-4" role="button" onclick="move_left()">
+        <i class="fa-solid fa-chevron-left fa-lg" style="color: #ffffff;"></i>
+    </div>
+
+    <div class="arrow-right d-lg-inline d-none bg-dark bg-opacity-50 px-3 py-4" role="button" onclick="move_right()">
+        <i class="fa-solid fa-chevron-right fa-lg" style="color: #ffffff;"></i>
+    </div>
+
+    <div id="main-container-background" class="d-flex flex-nowrap overflow-x-scroll justify-content-start mx-4 text-uppercase">
+        <div class="my-card-home p-3">
+            <div class="d-flex justify-content-start align-items-end h-100">
+                <div class="my-text">
+                    This is a text
+                </div>
+            </div>
+        </div>
+        <div class="my-card-home p-3">
+            <div class="d-flex justify-content-start align-items-end h-100">
+                <div class="my-text">
+                    This is a text
+                </div>
+            </div>
+        </div>
+        <div class="my-card-home p-3">
+            <div class="d-flex justify-content-start align-items-end h-100">
+                <div class="my-text">
+                    This is a text
+                </div>
+            </div>
+        </div>
+        <div class="my-card-home p-3">
+            <div class="d-flex justify-content-start align-items-end h-100">
+                <div class="my-text">
+                    This is a text
+                </div>
+            </div>
+        </div>
+
+        <div class="my-card-home p-3">
+            <div class="d-flex justify-content-start align-items-end h-100">
+                <div class="my-text">
+                    This is a text
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<br>
+
+<script type="text/javascript">
+
+    function move_left() {
+        document.getElementById("main-container-background").scrollTo(0, 0);
+    }
+
+    function move_right() {
+        document.getElementById("main-container-background").scrollTo(1000, 0);
+    }
+
+</script>

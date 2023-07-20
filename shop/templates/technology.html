@@ -1,0 +1,125 @@
+{% extends "components/base.html" %}
+{% csrf_token %}
+{% load static %}
+{% block body %}
+
+
+<div class="container-fuild text-left my-5">
+    <div class="row">
+
+        <div class="col-lg text-center p-lg-5">
+            <img src="{% static 'img/dee3.jpg' %}" style="width: 90%;">
+        </div>
+
+        <div class="col-lg"  style="text-align: justify;">
+
+            <div class="m-5">
+
+                <br>
+                <h3>Our Technology</h3>
+                <br>
+
+                Dee Tec manufactures diamond tools for construction & stone applications using advanced Hot Isostatic
+                Pressing technology. Our technology allows the tools to perform in demanding conditions on a consistent
+                basis. We have over 50 years’ of experience in diamond tools for various applications.
+                <br>
+                <br>
+                Our products are always designed to be ahead of the competition based on continuous improvement “Kaizen
+                Methods” with a strong focus on research. Cost efficiencies are our biggest strength. With a strong
+                focus on automation, our research also ensures we are far more cost-efficient than local and global
+                producers of these products.
+                <br>
+                <br>
+                Our new line ProHYBRID for construction has been designed to produce high-quality tools for various
+                applications such as wall sawing, floor sawing, core drilling, hand saw machines, and diamond wire.
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style type="text/css">
+    .technology-card {
+        width: 90%;
+        height: max-content;
+        border-style: solid;
+        position: relative;
+    }
+
+    .technology-card-img {
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90px;
+        height: 90px;
+        border-radius: 45px;
+        background-color: #da1f3e;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px;
+    }
+</style>
+
+{% for i in cards %}
+
+<div class="container-fuild text-left mt-4 d-flex justify-content-center">
+    <div class="row" style="width: 96vw;">
+
+        <div class="col-lg justify-content-center d-flex mt-5 mb-5">
+            <div class="technology-card">
+
+                <div class="technology-card-img">
+                    <img src="/media/{{ i.left_logo }}" style="width: 50px; height: 50px;">
+                </div>
+                <br>
+                <br>
+
+                <center>
+                    <div style="font-weight: 300; font-size: 1.6rem;">
+                        {{ i.left_heading }}
+                    </div>
+                </center>
+
+
+                <center style="padding: 20px; font-size: 1rem;">
+                    {{ i.left_description }}
+                </center>
+
+
+
+            </div>
+        </div>
+
+        <div class="col-lg justify-content-center d-flex mt-5 mb-5">
+            <div class="technology-card">
+
+                <div class="technology-card-img">
+                    <img src="/media/{{ i.right_logo }}" style="width: 50px; height: 50px;">
+                </div>
+                <br>
+                <br>
+
+                <center>
+                    <div style="font-weight: 300; font-size: 1.6rem;">
+                        {{ i.right_heading }}
+                    </div>
+                </center>
+
+                <center style="padding: 20px; font-size: 1rem;">
+                    {{ i.right_description }}
+                </center>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+<br>
+<br>
+<br>
+{% endblock %}

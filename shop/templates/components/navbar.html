@@ -1,0 +1,199 @@
+{% csrf_token %}
+{% load static %}
+
+<style type="text/css">
+    /* On smaller resolutions, hide the text for Large screens */
+    @media only screen and (max-width: 992px) {
+        .largeScreen {
+            display: none;
+        }
+    }
+
+    /* On larger resolutions, hide the text for Small screens */
+    @media only screen and (min-width: 992px) {
+        .smallScreen {
+            display: none;
+        }
+    }
+</style>
+
+<div class="largeScreen" style="position: sticky; top: 0; z-index: 100;">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+        <div class="container-fluid my-1">
+            <a href="{% url 'index' %}"><img class="navbar-brand ms-3" src="/static/img/main-logo.png"
+                    style="width: 8vw; min-width: 100px;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                    <li class="nav-item dropdown mx-3">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="true">
+                            Construction
+                            Tools
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            {% for coll in collections_construction %}
+                            {% with coll.name|slugify as modified_string %}
+                            <li><a class="dropdown-item" href="{% url 'tools' param=modified_string  %}">
+                                    {{ coll.name }}
+                                </a></li>
+                            {% endwith %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+
+
+                    <li class="nav-item dropdown mx-3">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="true">
+                            Stone Tools
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for coll in collections_stone %}
+                            {% with coll.name|slugify as modified_string %}
+                            <li><a class="dropdown-item" href="{% url 'tools' param=modified_string  %}">
+                                    {{ coll.name }}
+                                </a></li>
+                            {% endwith %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+
+
+                    <li class="nav-item dropdown mx-3">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="true">
+                            About
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'about-deetec' %}">About Company</a></li>
+                            <li><a class="dropdown-item" href="{% url 'faqs' %}">FAQ's</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item mx-3">
+                        <a class="nav-link  text-light" href="{% url 'technology' %}">Technology</a>
+                    </li>
+
+                    <li class="nav-item mx-3">
+                        <a class="nav-link text-light" href="{% url 'contact-us' %}">
+                            <i class="fa fa-phone"></i>
+                            Contact Us
+                        </a>
+                    </li>
+
+                </ul>
+
+
+            </div>
+            <li class="nav-item px-3" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff; border: none;"></div>
+            </li>
+        </div>
+    </nav>
+
+</div>
+<div class="smallScreen" style="position: sticky; top: 0; z-index: 100;">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+
+            <div class="nav-item px-2 ms-0" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                style="height: 100%;">
+                <div class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff; border: none;"></div>
+            </div>
+
+
+            <a href="{% url 'index' %}"><img class="navbar-brand" src="/static/img/main-logo.png"
+                    style="width: 8vw; min-width: 100px;">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                    <li class="nav-item dropdown mx-3">
+                        <a class="nav-link dropdown-toggle text-light" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="true">
+                            Construction
+                            Tools
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            {% for coll in collections_construction %}
+                            {% with coll.name|slugify as modified_string %}
+                            <li><a class="dropdown-item" href="{% url 'tools' param=modified_string  %}">
+                                    {{ coll.name }}
+                                </a></li>
+                            {% endwith %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown mx-3">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="true">
+                            Stone Tools
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for coll in collections_stone %}
+                            {% with coll.name|slugify as modified_string %}
+                            <li><a class="dropdown-item" href="{% url 'tools' param=modified_string  %}">
+                                    {{ coll.name }}
+                                </a></li>
+                            {% endwith %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+
+
+
+                    <li class="nav-item dropdown mx-3">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="true">
+                            About
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'about-deetec' %}">About Company</a></li>
+                            <li><a class="dropdown-item" href="{% url 'faqs' %}">FAQ's</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item mx-3">
+                        <a class="nav-link  text-light" href="{% url 'technology' %}">Technology</a>
+                    </li>
+
+                    <li class="nav-item mx-3">
+                        <a class="nav-link text-light" href="{% url 'contact-us' %}">
+                            <i class="fa fa-phone"></i>
+                            Contact Us
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</div>

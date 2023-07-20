@@ -1,0 +1,55 @@
+{% csrf_token %}
+{% load static %}
+
+
+<style type="text/css">
+    .card-container {
+        display: flex;
+        align-items: center;
+        overflow-x: scroll;
+    }
+
+    .product-card {
+        min-width: 200px;
+        background-color: #F2F2F2FF;
+        flex-grow: 1;
+        height: 40vh;
+        display: flexbox;
+        box-shadow: 0px 0px 5px gray;
+        border-radius: 2vw;
+        padding: 2rem;
+    }
+
+    .left-arrow {
+        position: absolute;
+        top: 50%;
+        left: 2%;
+        transform: translate(0%, -50%);
+    }
+
+    .right-arrow {
+        position: absolute;
+        top: 50%;
+        right: 2%;
+        transform: translate(0%, -50%);
+    }
+</style>
+
+<br>
+<hr>
+<div style="position: relative;">
+    <div class="card-container">
+        {% for tool in tools %}
+        <div class="product-card my-1 mx-3">
+            <div >
+                <img src="/static/img/products.webp" width="100%">
+            </div>
+            <div style="font-size: 1rem; font-weight: 500;">{{ tool.name }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+
+<br>
+<br>

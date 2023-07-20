@@ -1,0 +1,112 @@
+{% csrf_token %}
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deetec | Technology At Work</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+    <style type="text/css">
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        #main-body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        #main-body {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+</head>
+
+<body id="main-body">
+
+    <style type="text/css">
+        .modal-backdrop {
+            background-color: transparent;
+        }
+
+        #my-search-bar {
+            z-index: 30;
+            border-radius: 10px;
+            text-align: center;
+            border-width: 0;
+            outline: none;
+            box-shadow: 0 0 10px gray;
+            border-style: none;
+            background-color: white;
+        }
+    </style>
+
+
+    {% include "components/call-button.html" %}
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="my-search-bar" style="background-color: transparent; top: 8vh;">
+            <div class="modal-content">
+                <div class="modal-body">
+
+
+                    <input onkeydown="handleSearch(event)" id="my-new-search-bar" type="search" name="search-bar"
+                        placeholder="What're you searching for ?" class="text-left border-0 m-1"
+                        style="font-size: 1.4rem; font-weight: 400; outline: none; border-style: none; width: 100%;">
+
+                </div>
+                <div class="modal-footer d-none">
+                    <button id="close-search" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleSearch(event) {
+            if (event.key == "Enter") {
+                if (typeof search_text === 'function') {
+                    search_text();
+                }
+                else {
+                    let text = document.getElementById("my-new-search-bar").value;
+                    window.location.href = `/tools/?search=${text}`;
+                }
+                document.getElementById("close-search").click();
+            }
+        }
+    </script>
+
+    <div class="d-flex flex-column justify-content-between min-vh-100" style="z-index: 1;">
+        <div class="sticky-top m-0">
+            {% include "components/navbar.html" %}
+        </div>
+        
+        <div class="m-0">
+            {% block body %}
+
+            replace me
+
+            {% endblock %}
+
+        </div>
+        <div>
+            {% include "components/footer.html" %}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
